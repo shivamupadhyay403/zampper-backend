@@ -1,7 +1,7 @@
+import './config/env'
 import express from 'express';
 import cors from 'cors';
 import helmet from 'helmet';
-import dotenv from 'dotenv';
 import rateLimit from 'express-rate-limit';
 import axios from 'axios';
 
@@ -10,7 +10,6 @@ import { httpLogger } from './middleware/httpLogger';
 import { logger } from './lib/logger';
 import services from './config/services';
 
-dotenv.config();
 
 const app = express();
 

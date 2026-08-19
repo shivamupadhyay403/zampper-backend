@@ -1,5 +1,5 @@
 import './config/env';
-import './config/startDb';
+// import './config/startDb';
 import express from 'express';
 import { logger } from './lib/logger';
 
@@ -11,6 +11,7 @@ app.get('/health', (req, res) => {
     message: 'Auth App Working Perfectly',
   });
 });
+
 app.listen(process.env.APP_PORT || 3001, () => {
   logger.info(`Auth App running on port ${process.env.APP_PORT}`);
 });

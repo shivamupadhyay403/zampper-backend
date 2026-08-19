@@ -25,8 +25,8 @@ function proxyTo(target: string, label: string) {
   });
 }
 
-router.use('/auth', proxyTo(services.auth, 'auth-service'));
-router.use('/users', proxyTo(services.user, 'user-service'));
-router.use('/orders', proxyTo(services.order, 'order-service'));
+router.use('/v1/auth', proxyTo(services.auth, 'auth-service'));
+router.use('/v1/users', proxyTo(services.user, 'user-service'));
+router.use('/v1/orders', proxyTo(services.order, 'order-service'));
 
 export default router;

@@ -48,7 +48,7 @@ app.get('/ready', async (req, res) => {
 
 app.use('/api', proxyRoutes);
 
-const PORT = Number(process.env.PORT) || 3000;
+const PORT = Number(process.env.PORT) || 8000;
 
 const server = app.listen(PORT, () => {
   logger.info(`API Gateway running on port ${PORT}`);

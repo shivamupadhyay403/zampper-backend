@@ -20,6 +20,9 @@
   "homepage": "https://github.com/shivamupadhyay403/zampper-backend#readme",
   "description": "",
   "devDependencies": {
+    "@types/compression": "^1.8.1",
+    "@types/cookie-parser": "^1.4.10",
+    "@types/cors": "^2.8.19",
     "prettier": "^3.9.6"
   }
 }

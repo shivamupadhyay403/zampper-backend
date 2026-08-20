@@ -1,7 +1,5 @@
 import express from 'express';
-import cors from 'cors';
 import { errorHandler } from './middlewares/errorMiddleware';
-import { ALLOWED_ADDRESS } from './config/env';
 import { logger } from './lib/logger';
 import pinoHttp from 'pino-http';
 import compression from 'compression';
@@ -12,10 +10,6 @@ const app = express();
 
 // Middlewares
 app.use(
-  cors({
-    origin: ALLOWED_ADDRESS,
-    credentials: true,
-  }),
   pinoHttp({
     logger,
   }),
@@ -25,7 +19,7 @@ app.use(
 );
 app.use(express.json());
 app.use(authRoutes)
-app.get('health', (res: any) => {
+app.get('/health', (res: any) => {
   logger.info('App working Correctly');
   return res.status(200).json({ message: 'App working Correctly' });
 });

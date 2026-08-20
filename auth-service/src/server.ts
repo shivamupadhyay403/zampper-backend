@@ -1,17 +1,32 @@
-import './config/env';
-// import './config/startDb';
-import express from 'express';
+import app from '.';
+import { connectRedis, redisClient } from './redis/redis';
 import { logger } from './lib/logger';
+import { PORT } from './config/env';
+async function startServer() {
+  try {
+    await connectRedis();
+    const server = app.listen(PORT, () => {
+      logger.info(`Server started on ${PORT}`);
+    });
 
-const app = express();
+    // Graceful shutdown
+    process.on('SIGINT', async () => {
+      logger.info('Shutting down...');
 
-app.get('/health', (req, res) => {
-  logger.info('Auth App Running ');
-  return res.status(200).json({
-    message: 'Auth App Working Perfectly',
-  });
-});
+      await redisClient.quit();
+      server.close(() => process.exit(0));
+    });
 
-app.listen(process.env.APP_PORT || 3001, () => {
-  logger.info(`Auth App running on port ${process.env.APP_PORT}`);
-});
+    process.on('SIGTERM', async () => {
+      logger.info('Shutting down...');
+
+      await redisClient.quit();
+      server.close(() => process.exit(0));
+    });
+  } catch (err: unknown) {
+    logger.error({ err }, 'Application startup failed');
+    process.exit(1);
+  }
+}
+
+startServer();
